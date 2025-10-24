@@ -51,6 +51,10 @@ Este flujo incluye lectura del dataset, preprocesamiento de texto, vectorizació
 - Error: `57.3 %`
 - Cohen’s Kappa: `0.0`
 
+- El modelo acertó en solo el 42.7 % de las predicciones, esto indica un desempeño muy bajo porque está apenas por encima de una clasificación aleatoria (en un problema binario, el azar daría ~50 %)
+- El modelo falló en más de la mitad de los casos (`57.3 %`), esto refuerza que el modelo no está capturando patrones útiles del dataset.
+- Un valor de `0.0` significa que el modelo no tiene mejor desempeño que una clasificación aleatoria, en contextos de clasificación binaria, esto es una señal crítica de que el modelo no aprendió.
+
 ### 5. Entrenamiento con BERT en Colab
 
 - Modelo: `bert-base-multilingual-cased`
@@ -96,7 +100,7 @@ Este flujo incluye lectura del dataset, preprocesamiento de texto, vectorizació
 
 ## Comparativa de modelos
 
-## 📊 Interpretación métrica por métrica
+## Interpretación métrica por métrica
 
 | Métrica              | Naive Bayes (KNIME) | BERT (Colab) | Interpretación |
 |----------------------|---------------------|--------------|----------------|
@@ -109,10 +113,12 @@ Este flujo incluye lectura del dataset, preprocesamiento de texto, vectorizació
 
 ## Conclusiones
 
-- Los modelos clásicos como Naive Bayes son útiles como baseline, pero tienen limitaciones semánticas
+- Los modelos clásicos como Naive Bayes son útiles como linea base, pero tienen limitaciones semánticas
 - BERT ofrece una mejora significativa en precisión y velocidad cuando se entrena en GPU
 - La combinación de herramientas como KNIME, Python y LLM permite un flujo de trabajo robusto, automatizado y colaborativo
-- Documentar y publicar el proyecto en GitHub y LinkedIn fortalece la visibilidad profesional y el aprendizaje técnico
+- El modelo Naive Bayes con Bag of Words no es adecuado para la tarea de detección de noticias falsas en este dataset. Las métricas sugieren que no hay aprendizaje significativo. 
+- Se requiere un enfoque más robusto (como BERT o modelos contextuales)
+
 
 ---
 
