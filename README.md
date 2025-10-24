@@ -76,34 +76,34 @@ Este flujo incluye lectura del dataset, preprocesamiento de texto, vectorizació
 
 | Categoría              | Herramienta                        |
 |------------------------|------------------------------------|
-| Gestión de proyectos   | Notion, Trello, ClickUP            |
+| Gestión de proyectos   | Notion                             |
 | Análisis de datos      | KNIME, Python, pandas              |
 | Modelos de lenguaje    | Hugging Face Transformers, BERT    |
-| Automatización         | LLM (Copilot, ChatGPT, etc.)       |
-| Visualización          | Matplotlib, plot_tree, KNIME views |
+| Automatización         | LLM (Copilot, ChatGPT)             |    
 | Repositorio técnico    | GitHub                             |
 
 ---
 
-## Entregables
+## Contenido del repositorio
 
-- [x] Flujo en KNIME documentado
+- [x] Flujo en KNIME 
 - [x] Script de entrenamiento en Colab con BERT
-- [x] Visualizaciones de métricas
-- [x] Publicación en LinkedIn
+- [x] métricas
 - [x] Repositorio en GitHub con todos los recursos
-- [x] Pitch en video explicando la propuesta
+
 
 ---
 
 ## Comparativa de modelos
 
-| Métrica              | Naive Bayes (KNIME) | BERT (Colab) |
-|----------------------|---------------------|--------------|
-| Accuracy             | 42.7 %              | 97.2 %       |
-| Error                | 57.3 %              | 11.2 %       |
-| F1 Score             | —                   | 0.972        |
-| Cohen’s Kappa        | 0.0                 | —            |
+## 📊 Interpretación métrica por métrica
+
+| Métrica              | Naive Bayes (KNIME) | BERT (Colab) | Interpretación |
+|----------------------|---------------------|--------------|----------------|
+| **Accuracy**         | 42.7 %              | 97.2 %       | BERT logra clasificar correctamente casi todas las muestras, mientras que Naive Bayes falla en más de la mitad. |
+| **Error**            | 57.3 %              | 11.2 %       | El modelo clásico comete errores en más de la mitad de los casos; BERT tiene un margen de error muy bajo. |
+| **F1 Score**         | —                   | 0.972        | BERT tiene un excelente equilibrio entre precisión y exhaustividad. Naive Bayes no reporta esta métrica, pero se estima baja. |
+| **Cohen’s Kappa**    | 0.0                 | —            | El modelo de KNIME no tiene mejor desempeño que una clasificación aleatoria. BERT no reporta esta métrica, pero sería alta. |
 
 ---
 
@@ -117,8 +117,12 @@ Este flujo incluye lectura del dataset, preprocesamiento de texto, vectorizació
 ---
 
 ## Repositorio del modelo
+A continuación se muestra una captura de los archivos generados y subidos al repositorio de Hugging Face:
 
-📁 [Hugging Face: jazska/fake-news-detector-es](https://huggingface.co/jazska/fake-news-detector-es)
+![Archivos del modelo en Hugging Face](assets/2.png)
+
+Link de acceso al modelo:
+[Hugging Face: jazska/fake-news-detector-es](https://huggingface.co/jazska/fake-news-detector-es)
 
 ---
 
