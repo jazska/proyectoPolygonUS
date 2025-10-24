@@ -1,12 +1,12 @@
-# 🧠 Proyecto de Clase: Detección de Noticias Falsas con BERT y KNIME
+# Proyecto de Clase: Detección de Noticias Falsas con BERT y KNIME
 
-## 📌 Descripción
+## Descripción
 
 Este proyecto busca resolver el problema de la **identificación automática de noticias falsas** en español, combinando enfoques clásicos de machine learning con modelos modernos de lenguaje (LLM). Se parte de un dataset real con textos noticiosos y se aplica un flujo de análisis que incluye preprocesamiento, vectorización, entrenamiento y evaluación de modelos.
 
 ---
 
-## 🎯 Objetivo
+## Objetivo
 
 Desarrollar un sistema capaz de clasificar noticias como **verdaderas** o **falsas**, utilizando:
 
@@ -15,7 +15,7 @@ Desarrollar un sistema capaz de clasificar noticias como **verdaderas** o **fals
 
 ---
 
-## 🧩 Metodología
+## Metodología
 
 ### 1. Gestión del proyecto
 
@@ -70,7 +70,7 @@ Desarrollar un sistema capaz de clasificar noticias como **verdaderas** o **fals
 
 ---
 
-## 🛠️ Herramientas utilizadas
+## Herramientas utilizadas
 
 | Categoría              | Herramienta                        |
 |------------------------|------------------------------------|
@@ -83,7 +83,7 @@ Desarrollar un sistema capaz de clasificar noticias como **verdaderas** o **fals
 
 ---
 
-## 📦 Entregables
+## Entregables
 
 - [x] Flujo en KNIME documentado
 - [x] Script de entrenamiento en Colab con BERT
@@ -94,7 +94,7 @@ Desarrollar un sistema capaz de clasificar noticias como **verdaderas** o **fals
 
 ---
 
-## 📊 Comparativa de modelos
+## Comparativa de modelos
 
 | Métrica              | Naive Bayes (KNIME) | BERT (Colab) |
 |----------------------|---------------------|--------------|
@@ -105,7 +105,7 @@ Desarrollar un sistema capaz de clasificar noticias como **verdaderas** o **fals
 
 ---
 
-## 🧠 Conclusiones
+## Conclusiones
 
 - Los modelos clásicos como Naive Bayes son útiles como baseline, pero tienen limitaciones semánticas
 - BERT ofrece una mejora significativa en precisión y velocidad cuando se entrena en GPU
@@ -114,13 +114,13 @@ Desarrollar un sistema capaz de clasificar noticias como **verdaderas** o **fals
 
 ---
 
-## 🔗 Repositorio del modelo
+## Repositorio del modelo
 
 📁 [Hugging Face: jazska/fake-news-detector-es](https://huggingface.co/jazska/fake-news-detector-es)
 
 ---
 
-## 📣 Créditos
+## Créditos
 
 Proyecto desarrollado como parte del curso de análisis de datos y automatización con LLM.  
 Incluye integración de herramientas de gestión, visualización, entrenamiento y publicación técnica.
