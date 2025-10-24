@@ -19,9 +19,7 @@ Desarrollar un sistema capaz de clasificar noticias como **verdaderas** o **fals
 
 ### 1. Gestión del proyecto
 
-- Plan metodológico diseñado en **Notion**
-- Seguimiento de tareas en **Trello**
-- Organización colaborativa con **ClickUP**
+- Plan metodológico diseñado en **Notion** al igual que el s eguimiento de tareas
 
 ### 2. Obtención del dataset
 
