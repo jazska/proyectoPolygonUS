@@ -117,7 +117,7 @@ Este flujo incluye lectura del dataset, preprocesamiento de texto, vectorizació
 - BERT ofrece una mejora significativa en precisión y velocidad cuando se entrena en GPU
 - La combinación de herramientas como KNIME, Python y LLM permite un flujo de trabajo robusto, automatizado y colaborativo
 - El modelo Naive Bayes con Bag of Words no es adecuado para la tarea de detección de noticias falsas en este dataset. Las métricas sugieren que no hay aprendizaje significativo. 
-- Se requiere un enfoque más robusto (como BERT o modelos contextuales)
+- Se requiere un enfoque más robusto (como BERT o modelos contextuales) para obtener altos porcentajes de precision y baja tasa de error en los resultados de los entrenamientos.
 
 
 ---
