@@ -41,6 +41,10 @@ Desarrollar un sistema capaz de clasificar noticias como **verdaderas** o **fals
 - Vectorización con Bag of Words
 - Entrenamiento con Naive Bayes
 - Evaluación con `Scorer`
+**Flujo de procesamiento en KNIME**
+Este flujo incluye lectura del dataset, preprocesamiento de texto, vectorización y entrenamiento con Naive Bayes.
+
+![Flujo en KNIME](assets/1.png)
 
 **Resultados:**
 - Accuracy: `42.7 %`
