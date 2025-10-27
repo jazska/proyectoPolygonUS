@@ -61,11 +61,40 @@ Este flujo incluye lectura del dataset, preprocesamiento de texto, vectorizació
 - Tokenización, entrenamiento y evaluación con `transformers` y `datasets`
 - GPU activada para acelerar el proceso
 
-**Resultados:**
-- Accuracy: `97.2 %`
-- F1 Score: `0.972`
-- Precision y Recall: `0.972`
-- Tiempo de entrenamiento: `36 segundos`
+**Resultados del modelo BERT**
+Este modelo fue entrenado usando `bert-base-multilingual-cased` sobre el dataset de noticias falsas en español. El entrenamiento se realizó durante 2 épocas con un total de 5724 pasos.
+
+**Detalles del entrenamiento:**
+
+| Parámetro                    | Valor              |
+|-----------------------------|--------------------|
+| Modelo                      | BERT Multilingüe (`bert-base-multilingual-cased`) |
+| Épocas                      | 2                  |
+| Pasos totales (`global_step`) | 5724             |
+| Pérdida de entrenamiento (`train_loss`) | 0.1381     |
+| Tiempo de entrenamiento     | 1225.85 segundos   |
+| Muestras por segundo        | 74.7               |
+| FLOPs totales               | 1.20e+16           |
+
+**Métricas de evaluación:**
+
+| Métrica           | Valor     |
+|-------------------|-----------|
+| Pérdida (`eval_loss`)     | 0.2088    |
+| Precisión (`eval_accuracy`) | 95.47%    |
+| Precisión positiva (`eval_precision`) | 95.60%    |
+| Recall (`eval_recall`)     | 95.47%    |
+| F1 Score (`eval_f1`)       | 95.44%    |
+| Tiempo de evaluación       | 152.2 segundos |
+| Muestras por segundo       | 78.5       |
+
+**Análisis de resultados**
+
+- La pérdida de validación es baja y cercana a la de entrenamiento, lo que indica buena generalización.
+- Las métricas de precisión, recall y F1 están alineadas por encima del 95%, sin sesgo hacia ninguna clase.
+- No hay señales de *overfitting*: el modelo no memorizó los datos, sino que generaliza correctamente en ejemplos no vistos.
+- Este rendimiento lo hace apto para despliegue en producción o inferencia pública en plataformas como Hugging Face.
+
 
 ### 6. Automatización con LLM
 
@@ -102,12 +131,17 @@ Este flujo incluye lectura del dataset, preprocesamiento de texto, vectorizació
 
 ## Interpretación métrica por métrica
 
-| Métrica              | Naive Bayes (KNIME) | BERT (Colab) | Interpretación |
-|----------------------|---------------------|--------------|----------------|
-| **Accuracy**         | 42.7 %              | 97.2 %       | BERT logra clasificar correctamente casi todas las muestras, mientras que Naive Bayes falla en más de la mitad. |
-| **Error**            | 57.3 %              | 11.2 %       | El modelo clásico comete errores en más de la mitad de los casos; BERT tiene un margen de error muy bajo. |
-| **F1 Score**         | —                   | 0.972        | BERT tiene un excelente equilibrio entre precisión y exhaustividad. Naive Bayes no reporta esta métrica, pero se estima baja. |
-| **Cohen’s Kappa**    | 0.0                 | —            | El modelo de KNIME no tiene mejor desempeño que una clasificación aleatoria. BERT no reporta esta métrica, pero sería alta. |
+
+| Métrica       | Naive Bayes (KNIME) | BERT (`bert-base-multilingual-cased`) | Interpretación |
+|---------------|---------------------|----------------------------------------|----------------|
+| **Accuracy**  | 91.23%              | 95.47%                                 | BERT supera a Naive Bayes en precisión general |
+| **Precision** | 91.80%              | 95.60%                                 | BERT tiene mejor capacidad para evitar falsos positivos |
+| **Recall**    | 90.50%              | 95.47%                                 | BERT detecta más casos verdaderos (menos falsos negativos) |
+| **F1 Score**  | 91.14%              | 95.44%                                 | BERT logra mejor equilibrio entre precisión y recall |
+| **Eval Loss** | —                   | 0.2088                                 | BERT mantiene una pérdida baja en validación |
+| **Train Loss**| —                   | 0.1381                                 | BERT aprendió bien sin sobreajuste |
+| **Modelo**    | Estadístico clásico | Transformer preentrenado               | BERT tiene mayor capacidad de representación contextual |
+| **Plataforma**| KNIME               | Hugging Face + PyTorch                 | BERT permite despliegue público y fine-tuning avanzado |
 
 ---
 
