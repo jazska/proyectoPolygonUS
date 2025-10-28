@@ -166,6 +166,52 @@ Link de acceso al modelo:
 
 ---
 
+---
+
+## Cómo probar el modelo
+
+Puedes probar el modelo directamente desde Hugging Face usando el pipeline de `transformers` en Python:
+
+### 🔧 Requisitos
+
+Instala las librerías necesarias:
+
+```bash
+pip install transformers torch
+
+## Código de ejemplo para pruebas desde Google Colab:
+
+import torch
+from transformers import pipeline
+from google.colab import userdata
+
+# Obtener el token de hugging face desde colab
+hf_token = userdata.get('HF_TOKEN')
+
+pipe = pipeline("text-classification", model="jazska/fake-news-detector-es", token=hf_token)
+
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+tokenizer = AutoTokenizer.from_pretrained("jazska/fake-news-detector-es")
+model = AutoModelForSequenceClassification.from_pretrained("jazska/fake-news-detector-es")
+
+# Texto de prueba
+a = input("ingresa la noticia: ")
+texto = a
+
+# Tokenizar el texto
+inputs = tokenizer(texto, return_tensors="pt", truncation=True, padding=True)
+
+# Ejecutar inferencia
+with torch.no_grad():
+    outputs = model(**inputs)
+    pred = torch.argmax(outputs.logits, dim=1).item()
+
+# Interpretar resultado
+etiquetas = ["Fake", "Real"] 
+print("Predicción:", etiquetas[pred])
+
+
 ## Créditos
 
 Proyecto desarrollado como parte del curso de análisis de datos y automatización con LLM.  
