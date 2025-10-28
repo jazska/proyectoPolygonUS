@@ -211,7 +211,7 @@ with torch.no_grad():
 etiquetas = ["Fake", "Real"] 
 print("Predicción:", etiquetas[pred])
 
-
+```
 ## Créditos
 
 Proyecto desarrollado como parte del curso de análisis de datos y automatización con LLM.  
