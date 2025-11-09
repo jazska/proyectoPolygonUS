@@ -23,8 +23,28 @@ Desarrollar un sistema capaz de clasificar noticias como **verdaderas** o **fals
 
 ### 2. Obtención del dataset
 
-- Dataset consolidado en CSV con columnas: `titulo`, `texto`, `clase`
-- Fuentes: Kaggle, Internet y datos propios
+Se realizó una revisión exhaustiva en **Kaggle** para identificar datasets relevantes sobre noticias falsas en español. El proceso incluyó:
+
+- Exploración de múltiples fuentes públicas con contenido etiquetado como "Fake" o "Real".
+- Selección de datasets con estructura clara, cobertura temporal amplia y contenido verificable.
+- Unificación de los datos en un único archivo `.csv`, eliminando columnas innecesarias y normalizando campos como `titulo`, `texto` y `clase`.
+- Transformaciones adicionales para asegurar la coherencia semántica y la correcta clasificación binaria (`Fake` / `Real`).
+
+#### 📦 Datasets utilizados:
+
+- **Spanish Political Fake News**  
+  Noticias reales obtenidas por webscraping de medios como *Público*, *La Marea* y *El Común*. Incluye noticias falsas manipuladas y generadas por IA.  
+  [Ver en Kaggle](https://www.kaggle.com/datasets/javieroterovizoso/spanish-political-fake-news)
+
+- **Spanish Fake and Real News**  
+  Noticias verdaderas y falsas recopiladas durante 2019 desde múltiples sitios web públicos.  
+  [Ver en Kaggle](https://www.kaggle.com/datasets/zulanac/fake-and-real-news)
+
+- **Fake News Detection**  
+  Dataset con miles de textos noticiosos etiquetados como “Falsas” o “Verdaderas”, ideal para entrenamiento supervisado.  
+  [Ver en Kaggle](https://www.kaggle.com/datasets/vishakhdapat/fake-news-detection)
+
+Este proceso permitió consolidar un corpus robusto y balanceado, adecuado para entrenar modelos tanto clásicos como basados en lenguaje contextual como BERT.
 
 ### 3. Documentación técnica
 
