@@ -305,5 +305,7 @@ with torch.no_grad():
 etiquetas = ["Fake", "Real"] 
 print("Prediction:", etiquetas[pred])
 
+```
+
 ## Credits
 Project developed by Jonathan Zapata with the help of LLMs as part of the project for the Portfolio course at Polygon.US.
