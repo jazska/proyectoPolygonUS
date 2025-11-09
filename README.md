@@ -1,4 +1,4 @@
-# Proyecto de Clase: Detección de Noticias Falsas con BERT y KNIME
+# Proyecto de Clase: Detección de Noticias Falsas con BERT en python y Naive Bayes en KNIME
 
 ## Descripción
 
@@ -54,6 +54,23 @@ Este flujo incluye lectura del dataset, preprocesamiento de texto, vectorizació
 - El modelo acertó en solo el 42.7 % de las predicciones, esto indica un desempeño muy bajo porque está apenas por encima de una clasificación aleatoria (en un problema binario, el azar daría ~50 %)
 - El modelo falló en más de la mitad de los casos (`57.3 %`), esto refuerza que el modelo no está capturando patrones útiles del dataset.
 - Un valor Cohen's Kappa de `0.0` significa que el modelo no tiene mejor desempeño que una clasificación aleatoria, en contextos de clasificación binaria, esto es una señal crítica de que el modelo no aprendió.
+
+
+---
+
+### 🔄 Cambio de estrategia y pruebas en KNIME
+
+Durante la fase inicial del proyecto se realizaron pruebas en KNIME utilizando modelos clásicos de clasificación como **Naive Bayes**, **Árboles de Decisión** y **Random Forest**. Estos modelos fueron entrenados sobre el mismo dataset de noticias falsas en español, aplicando técnicas de vectorización como Bag of Words.
+
+Sin embargo, se observaron varias limitaciones:
+
+- El entrenamiento era **lento y poco eficiente**, especialmente en modelos como Random Forest.
+- Las métricas obtenidas eran **bajas**, con precisión apenas superior al azar (~42% en algunos casos).
+- Los modelos no lograban capturar el contexto semántico de los textos, lo que afectaba su capacidad de generalización.
+
+Ante estos resultados, se investigaron alternativas modernas en fuentes especializadas y se encontró que los modelos basados en **transformers como BERT** ofrecían **mayores porcentajes de precisión** en tareas similares de clasificación de texto. Por ello, se cambió la estrategia y se implementó un flujo de entrenamiento en Google Colab utilizando `bert-base-multilingual-cased`, logrando métricas superiores al 95% en precisión, recall y F1 score.
+
+---
 
 ### 5. Entrenamiento con BERT en Colab
 
