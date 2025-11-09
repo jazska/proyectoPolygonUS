@@ -46,6 +46,31 @@ Este flujo incluye lectura del dataset, preprocesamiento de texto, vectorizació
 
 ![Flujo en KNIME](assets/1.png)
 
+---
+
+## ⚙️ Explicación de nodos utilizados en KNIME
+
+A continuación se describen los nodos que componen el flujo de procesamiento en KNIME para la clasificación de noticias falsas:
+
+| Nodo                     | ¿Qué hace?                                                                 | Rol dentro del flujo |
+|--------------------------|----------------------------------------------------------------------------|-----------------------|
+| **CSV Reader**           | Lee el archivo `.csv` con los textos y etiquetas.                         | Punto de entrada del dataset. |
+| **Strings to Document**  | Convierte las cadenas de texto en objetos tipo `Document`.                | Prepara los textos para procesamiento NLP. |
+| **Stop Word Filter**     | Elimina palabras vacías como “el”, “de”, “y”.                             | Reduce ruido semántico. |
+| **Punctuation Erasure**  | Elimina signos de puntuación.                                             | Limpia el texto para análisis estructurado. |
+| **Snowball Stemmer**     | Aplica stemming para reducir palabras a su raíz.                         | Unifica variantes de palabras (ej. “corriendo” → “corr”). |
+| **Bag of Words Creator** | Genera una representación basada en frecuencia de palabras.               | Vectoriza el texto para modelos clásicos. |
+| **Document Vector**      | Convierte el Bag of Words en vectores numéricos.                          | Prepara los datos para entrenamiento. |
+| **Split Collection Column** | Separa las colecciones en columnas individuales.                     | Facilita el filtrado y unión posterior. |
+| **Column Filter**        | Elimina columnas irrelevantes (`Row ID`, `Document`, etc.).               | Conserva solo las variables útiles para el modelo. |
+| **Joiner**               | Une los datos procesados con la columna `clase` del dataset original.     | Asocia cada vector con su etiqueta real. |
+| **Table Partitioner**    | Divide el dataset en conjunto de entrenamiento y prueba.                  | Permite evaluar el modelo en datos no vistos. |
+| **Naive Bayes Learner**  | Entrena el modelo Naive Bayes con los datos de entrenamiento.             | Crea el clasificador estadístico. |
+| **Naive Bayes Predictor**| Aplica el modelo entrenado sobre el conjunto de prueba.                   | Genera predicciones sobre nuevos textos. |
+| **Scorer**               | Compara las predicciones con las etiquetas reales y calcula métricas.     | Evalúa el rendimiento del modelo (accuracy, error, kappa). |
+
+---
+
 **Resultados:**
 - Accuracy: `42.7 %`
 - Error: `57.3 %`
@@ -65,6 +90,7 @@ Durante la fase inicial del proyecto se realizaron pruebas en KNIME utilizando m
 Sin embargo, se observaron varias limitaciones:
 
 - El entrenamiento era **lento y poco eficiente**, especialmente en modelos como Random Forest.
+- El entrenamiento con Random Forest y Arboles de decision no se pudo completar ya que pasaron mas de 5 horas y los nodos Decision tree learner y regresion tree learner no llegaban al 10% de entrenamiento, por lo cual se decidió no continuar las pruebas con estos modelos
 - Las métricas obtenidas eran **bajas**, con precisión apenas superior al azar (~42% en algunos casos).
 - Los modelos no lograban capturar el contexto semántico de los textos, lo que afectaba su capacidad de generalización.
 
