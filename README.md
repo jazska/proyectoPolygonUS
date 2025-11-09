@@ -1,254 +1,285 @@
-# Proyecto de Clase: Detección de Noticias Falsas con BERT en python y Naive Bayes en KNIME
+## 🌎 Class Project: Fake News Detection with BERT in Python and Naive Bayes in KNIME (English Translation)
 
-## Descripción
+## Description
 
-Este proyecto busca resolver el problema de la **identificación automática de noticias falsas** en español, combinando enfoques clásicos de machine learning con modelos modernos de lenguaje (LLM). Se parte de un dataset real con textos noticiosos y se aplica un flujo de análisis que incluye preprocesamiento, vectorización, entrenamiento y evaluación de modelos.
-
----
-
-## Objetivo
-
-Desarrollar un sistema capaz de clasificar noticias como **verdaderas** o **falsas**, utilizando:
-
-- Algoritmos tradicionales como **Naive Bayes** en KNIME
-- Modelos de lenguaje como **BERT** en Google Colab con GPU
+This project aims to solve the problem of **automatic fake news identification** in Spanish, combining classic machine learning approaches with modern Large Language Models (LLMs). It starts with a real-world dataset of news texts and applies an analysis flow that includes preprocessing, vectorization, model training, and evaluation.
 
 ---
 
-## Metodología
+## Objective
 
-### 1. Gestión del proyecto
+To develop a system capable of classifying news as **true** or **fake**, using:
 
-- Plan metodológico diseñado en **Notion** al igual que el s eguimiento de tareas
+* Traditional algorithms like **Naive Bayes** in KNIME
+* Language models like **BERT** in Google Colab with GPU
 
-### 2. Obtención del dataset
+---
 
-Se realizó una revisión exhaustiva en **Kaggle** para identificar datasets relevantes sobre noticias falsas en español. El proceso incluyó:
+## Methodology
 
-- Exploración de múltiples fuentes públicas con contenido etiquetado como "Fake" o "Real".
-- Selección de datasets con estructura clara, cobertura temporal amplia y contenido verificable.
-- Unificación de los datos en un único archivo `.csv`, eliminando columnas innecesarias y normalizando campos como `titulo`, `texto` y `clase`.
-- Transformaciones adicionales para asegurar la coherencia semántica y la correcta clasificación binaria (`Fake` / `Real`).
+### 1. Project Management
 
-#### 📦 Datasets utilizados:
+* Methodological plan designed in **Notion**, along with task tracking.
 
-- **Spanish Political Fake News**  
-  Noticias reales obtenidas por webscraping de medios como *Público*, *La Marea* y *El Común*. Incluye noticias falsas manipuladas y generadas por IA.  
-  [Ver en Kaggle](https://www.kaggle.com/datasets/javieroterovizoso/spanish-political-fake-news)
+### 2. Dataset Acquisition
 
-- **Spanish Fake and Real News**  
-  Noticias verdaderas y falsas recopiladas durante 2019 desde múltiples sitios web públicos.  
-  [Ver en Kaggle](https://www.kaggle.com/datasets/zulanac/fake-and-real-news)
+An exhaustive review was conducted on **Kaggle** to identify relevant datasets on fake news in Spanish. The process included:
 
-- **Fake News Detection**  
-  Dataset con miles de textos noticiosos etiquetados como “Falsas” o “Verdaderas”, ideal para entrenamiento supervisado.  
-  [Ver en Kaggle](https://www.kaggle.com/datasets/vishakhdapat/fake-news-detection)
+* Exploration of multiple public sources with content labeled as "Fake" or "Real".
+* Selection of datasets with a clear structure, broad temporal coverage, and verifiable content.
+* Unification of data into a single `.csv` file, eliminating unnecessary columns and normalizing fields like `titulo` (title), `texto` (text), and `clase` (class).
+* Additional transformations to ensure semantic coherence and correct binary classification (`Fake` / `Real`).
 
-Este proceso permitió consolidar un corpus robusto y balanceado, adecuado para entrenar modelos tanto clásicos como basados en lenguaje contextual como BERT.
+#### 📦 Datasets Used:
 
-### 3. Documentación técnica
+* **Spanish Political Fake News**
+    Real news obtained by web scraping from media outlets like *Público*, *La Marea*, and *El Común*. Includes manipulated and AI-generated fake news.
+    [View on Kaggle](https://www.kaggle.com/datasets/javieroterovizoso/spanish-political-fake-news)
 
-- Repositorio en GitHub con:
-  - Scripts de entrenamiento en Python
-  - Flujos de trabajo en KNIME
-  - Visualizaciones y métricas
-  - Archivos `.md` explicativos
+* **Spanish Fake and Real News**
+    True and fake news collected during 2019 from multiple public websites.
+    [View on Kaggle](https://www.kaggle.com/datasets/zulanac/fake-and-real-news)
 
-### 4. Análisis en KNIME
+* **Fake News Detection**
+    Dataset with thousands of news texts labeled as “Falsas” (Fake) or “Verdaderas” (True), ideal for supervised training.
+    [View on Kaggle](https://www.kaggle.com/datasets/vishakhdapat/fake-news-detection)
 
-- Conversión a documentos
-- Limpieza de texto (puntuación, stemming)
-- Vectorización con Bag of Words
-- Entrenamiento con Naive Bayes
-- Evaluación con `Scorer`
-**Flujo de procesamiento en KNIME**
-Este flujo incluye lectura del dataset, preprocesamiento de texto, vectorización y entrenamiento con Naive Bayes.
+This process allowed the consolidation of a robust and balanced corpus, suitable for training both classic and contextual language-based models like BERT.
+
+### 3. Technical Documentation
+
+* GitHub Repository with:
+    * Python training scripts
+    * KNIME workflows
+    * Visualizations and metrics
+    * Explanatory `.md` files
+
+### 4. Analysis in KNIME
+
+* Conversion to documents
+* Text cleaning (punctuation, stemming)
+* Vectorization with Bag of Words
+* Training with Naive Bayes
+* Evaluation with `Scorer`
+
+**KNIME Processing Flow**
+This flow includes dataset reading, text preprocessing, vectorization, and training with Naive Bayes.
 
 ![Flujo en KNIME](assets/1.png)
 
 ---
 
-## ⚙️ Explicación de nodos utilizados en KNIME
+## ⚙️ Explanation of KNIME Nodes Used
 
-A continuación se describen los nodos que componen el flujo de procesamiento en KNIME para la clasificación de noticias falsas:
+The following describes the nodes that compose the KNIME processing flow for fake news classification:
 
-| Nodo                     | ¿Qué hace?                                                                 | Rol dentro del flujo |
-|--------------------------|----------------------------------------------------------------------------|-----------------------|
-| **CSV Reader**           | Lee el archivo `.csv` con los textos y etiquetas.                         | Punto de entrada del dataset. |
-| **Strings to Document**  | Convierte las cadenas de texto en objetos tipo `Document`.                | Prepara los textos para procesamiento NLP. |
-| **Stop Word Filter**     | Elimina palabras vacías como “el”, “de”, “y”.                             | Reduce ruido semántico. |
-| **Punctuation Erasure**  | Elimina signos de puntuación.                                             | Limpia el texto para análisis estructurado. |
-| **Snowball Stemmer**     | Aplica stemming para reducir palabras a su raíz.                         | Unifica variantes de palabras (ej. “corriendo” → “corr”). |
-| **Bag of Words Creator** | Genera una representación basada en frecuencia de palabras.               | Vectoriza el texto para modelos clásicos. |
-| **Document Vector**      | Convierte el Bag of Words en vectores numéricos.                          | Prepara los datos para entrenamiento. |
-| **Split Collection Column** | Separa las colecciones en columnas individuales.                     | Facilita el filtrado y unión posterior. |
-| **Column Filter**        | Elimina columnas irrelevantes (`Row ID`, `Document`, etc.).               | Conserva solo las variables útiles para el modelo. |
-| **Joiner**               | Une los datos procesados con la columna `clase` del dataset original.     | Asocia cada vector con su etiqueta real. |
-| **Table Partitioner**    | Divide el dataset en conjunto de entrenamiento y prueba.                  | Permite evaluar el modelo en datos no vistos. |
-| **Naive Bayes Learner**  | Entrena el modelo Naive Bayes con los datos de entrenamiento.             | Crea el clasificador estadístico. |
-| **Naive Bayes Predictor**| Aplica el modelo entrenado sobre el conjunto de prueba.                   | Genera predicciones sobre nuevos textos. |
-| **Scorer**               | Compara las predicciones con las etiquetas reales y calcula métricas.     | Evalúa el rendimiento del modelo (accuracy, error, kappa). |
-
----
-
-**Resultados:**
-- Accuracy: `42.7 %`
-- Error: `57.3 %`
-- Cohen’s Kappa: `0.0`
-
-- El modelo acertó en solo el 42.7 % de las predicciones, esto indica un desempeño muy bajo porque está apenas por encima de una clasificación aleatoria (en un problema binario, el azar daría ~50 %)
-- El modelo falló en más de la mitad de los casos (`57.3 %`), esto refuerza que el modelo no está capturando patrones útiles del dataset.
-- Un valor Cohen's Kappa de `0.0` significa que el modelo no tiene mejor desempeño que una clasificación aleatoria, en contextos de clasificación binaria, esto es una señal crítica de que el modelo no aprendió.
-
+| Node | What It Does | Role within the Flow |
+| :--- | :--- | :--- |
+| **CSV Reader** | Reads the `.csv` file with texts and labels. | Dataset entry point. |
+| **Strings to Document** | Converts text strings into `Document` objects. | Prepares texts for NLP processing. |
+| **Stop Word Filter** | Removes empty words like "el," "de," and "y" (the, of, and). | Reduces semantic noise. |
+| **Punctuation Erasure** | Removes punctuation marks. | Cleans the text for structured analysis. |
+| **Snowball Stemmer** | Applies stemming to reduce words to their root. | Unifies word variants (e.g., "corriendo" → "corr" - running → run). |
+| **Bag of Words Creator** | Generates a representation based on word frequency. | Vectorizes the text for classic models. |
+| **Document Vector** | Converts the Bag of Words into numerical vectors. | Prepares the data for training. |
+| **Split Collection Column** | Separates collections into individual columns. | Facilitates subsequent filtering and joining. |
+| **Column Filter** | Removes irrelevant columns (`Row ID`, `Document`, etc.). | Keeps only the useful variables for the model. |
+| **Joiner** | Joins the processed data with the original dataset's `clase` (class) column. | Associates each vector with its true label. |
+| **Table Partitioner** | Divides the dataset into training and test sets. | Allows evaluation of the model on unseen data. |
+| **Naive Bayes Learner** | Trains the Naive Bayes model with the training data. | Creates the statistical classifier. |
+| **Naive Bayes Predictor** | Applies the trained model to the test set. | Generates predictions on new texts. |
+| **Scorer** | Compares predictions with true labels and calculates metrics. | Evaluates model performance (accuracy, error, kappa). |
 
 ---
 
-### 🔄 Cambio de estrategia y pruebas en KNIME
+**Results:**
+* Accuracy: `42.7%`
+* Error: `57.3%`
+* Cohen’s Kappa: `0.0`
 
-Durante la fase inicial del proyecto se realizaron pruebas en KNIME utilizando modelos clásicos de clasificación como **Naive Bayes**, **Árboles de Decisión** y **Random Forest**. Estos modelos fueron entrenados sobre el mismo dataset de noticias falsas en español, aplicando técnicas de vectorización como Bag of Words.
-
-Sin embargo, se observaron varias limitaciones:
-
-- El entrenamiento era **lento y poco eficiente**, especialmente en modelos como Random Forest.
-- El entrenamiento con Random Forest y Arboles de decision no se pudo completar ya que pasaron mas de 5 horas y los nodos Decision tree learner y regresion tree learner no llegaban al 10% de entrenamiento, por lo cual se decidió no continuar las pruebas con estos modelos
-- Las métricas obtenidas eran **bajas**, con precisión apenas superior al azar (~42% en algunos casos).
-- Los modelos no lograban capturar el contexto semántico de los textos, lo que afectaba su capacidad de generalización.
-
-Ante estos resultados, se investigaron alternativas modernas en fuentes especializadas y se encontró que los modelos basados en **transformers como BERT** ofrecían **mayores porcentajes de precisión** en tareas similares de clasificación de texto. Por ello, se cambió la estrategia y se implementó un flujo de entrenamiento en Google Colab utilizando `bert-base-multilingual-cased`, logrando métricas superiores al 95% en precisión, recall y F1 score.
+* The model was correct in only **42.7%** of predictions, indicating very poor performance as it is barely above a random classification (in a binary problem, chance would yield ~50%).
+* The model failed in more than half of the cases (**57.3%**), reinforcing that the model is not capturing useful patterns from the dataset.
+* A Cohen's Kappa value of **`0.0`** means the model performs no better than a random classification; in binary classification contexts, this is a critical sign that the model has not learned.
+* The Naive Bayes model with Bag of Words is **not suitable** for the fake news detection task on this dataset. The metrics suggest no significant learning.
 
 ---
 
-### 5. Entrenamiento con BERT en Colab
+### 🔄 Change of Strategy and KNIME Testing
 
-- Modelo: `bert-base-multilingual-cased`
-- Tokenización, entrenamiento y evaluación con `transformers` y `datasets`
-- GPU activada para acelerar el proceso
+During the initial phase of the project, tests were conducted in KNIME using classic classification models such as **Naive Bayes**, **Decision Trees**, and **Random Forest**. These models were trained on the same Spanish fake news dataset, applying vectorization techniques like Bag of Words.
 
-**Resultados del modelo BERT**
-Este modelo fue entrenado usando `bert-base-multilingual-cased` sobre el dataset de noticias falsas en español. El entrenamiento se realizó durante 2 épocas con un total de 5724 pasos.
+However, several limitations were observed:
 
-**Detalles del entrenamiento:**
+* Training was **slow and inefficient**, especially for models like Random Forest.
+* Training with Random Forest and Decision Trees could not be completed, as the *Decision tree learner* and *Regression tree learner* nodes did not reach 10% of training after more than 5 hours, leading to the decision not to continue testing with these models.
+* The metrics obtained were **low**, with accuracy barely better than chance (~42% in some cases).
+* The models failed to capture the semantic context of the texts, which affected their generalization ability.
 
-| Parámetro                    | Valor              |
-|-----------------------------|--------------------|
-| Modelo                      | BERT Multilingüe (`bert-base-multilingual-cased`) |
-| Épocas                      | 2                  |
-| Pasos totales (`global_step`) | 5724             |
-| Pérdida de entrenamiento (`train_loss`) | 0.1381     |
-| Tiempo de entrenamiento     | 1225.85 segundos   |
-| Muestras por segundo        | 74.7               |
-| FLOPs totales               | 1.20e+16           |
-
-**Métricas de evaluación:**
-
-| Métrica           | Valor     |
-|-------------------|-----------|
-| Pérdida (`eval_loss`)     | 0.2088    |
-| Precisión (`eval_accuracy`) | 95.47%    |
-| Precisión positiva (`eval_precision`) | 95.60%    |
-| Recall (`eval_recall`)     | 95.47%    |
-| F1 Score (`eval_f1`)       | 95.44%    |
-| Tiempo de evaluación       | 152.2 segundos |
-| Muestras por segundo       | 78.5       |
-
-**Análisis de resultados**
-
-- La pérdida de validación es baja y cercana a la de entrenamiento, lo que indica buena generalización.
-- Las métricas de precisión, recall y F1 están alineadas por encima del 95%, sin sesgo hacia ninguna clase.
-- No hay señales de *overfitting*: el modelo no memorizó los datos, sino que generaliza correctamente en ejemplos no vistos.
-- Este rendimiento lo hace apto para despliegue en producción o inferencia pública en plataformas como Hugging Face.
-
-
-### 6. Automatización con LLM
-
-- Generación de código Python
-- Documentación del flujo
-- Creación de scripts de visualización
-- Redacción de publicaciones para LinkedIn
+Given these results, modern alternatives were investigated in specialized sources, and it was found that models based on **transformers like BERT** offered **higher accuracy percentages** in similar text classification tasks. Therefore, the strategy was changed, and a training flow was implemented in Google Colab using `bert-base-multilingual-cased`, achieving metrics above 95% in precision, recall, and F1 score.
 
 ---
 
-## Herramientas utilizadas
+### 5. Training with BERT in Colab
 
-| Categoría              | Herramienta                        |
-|------------------------|------------------------------------|
-| Gestión de proyectos   | Notion                             |
-| Análisis de datos      | KNIME, Python, pandas              |
-| Modelos de lenguaje    | Hugging Face Transformers, BERT    |
-| Automatización         | LLM (Copilot, ChatGPT)             |    
-| Repositorio técnico    | GitHub                             |
+* Model: `bert-base-multilingual-cased`
+* Tokenization, training, and evaluation with `transformers` and `datasets`
+* GPU enabled to speed up the process
 
 ---
 
-## Contenido del repositorio
+## Training with BERT: Strategy and Components Used in Python
 
-- [x] Flujo en KNIME 
-- [x] Script de entrenamiento en Colab con BERT
-- [x] métricas
-- [x] Repositorio en GitHub con todos los recursos
+The BERT model training was conducted in Google Colab using the Hugging Face `transformers` framework. The key steps and components used, along with their function in the training flow, are described below:
 
-
----
-
-## Comparativa de modelos
-
-## Interpretación métrica por métrica
-
-
-| Métrica       | Naive Bayes (KNIME) | BERT (`bert-base-multilingual-cased`) | Interpretación |
-|---------------|---------------------|----------------------------------------|----------------|
-| **Accuracy**  | 91.23%              | 95.47%                                 | BERT supera a Naive Bayes en precisión general |
-| **Precision** | 91.80%              | 95.60%                                 | BERT tiene mejor capacidad para evitar falsos positivos |
-| **Recall**    | 90.50%              | 95.47%                                 | BERT detecta más casos verdaderos (menos falsos negativos) |
-| **F1 Score**  | 91.14%              | 95.44%                                 | BERT logra mejor equilibrio entre precisión y recall |
-| **Eval Loss** | —                   | 0.2088                                 | BERT mantiene una pérdida baja en validación |
-| **Train Loss**| —                   | 0.1381                                 | BERT aprendió bien sin sobreajuste |
-| **Modelo**    | Estadístico clásico | Transformer preentrenado               | BERT tiene mayor capacidad de representación contextual |
-| **Plataforma**| KNIME               | Hugging Face + PyTorch                 | BERT permite despliegue público y fine-tuning avanzado |
+| Component / Step | What It Does | Role within the Flow |
+| :--- | :--- | :--- |
+| **Pandas (`pd.read_csv`)** | Loads the dataset from Google Drive and converts it into a DataFrame. | Starting point for data manipulation. |
+| **Preprocesamiento (`titulo + texto`)** | Combines the title and body of the news into a single `texto_completo` column. | Provides more semantic context to the model. |
+| **LabelEncoder** | Converts labels (`Fake` / `Real`) into numerical values (`0` / `1`). | Requirement for supervised training. |
+| **train_test_split** | Splits the dataset into training and test sets (80/20). | Allows evaluation of model generalization. |
+| **Hugging Face `Dataset.from_pandas`** | Converts DataFrames into `Dataset` objects compatible with `transformers`. | Standardizes the format for tokenization and training. |
+| **AutoTokenizer** | Tokenizes the texts using the `bert-base-multilingual-cased` model. | Converts text into input vectors (`input_ids`, `attention_mask`). |
+| **Tokenization with padding/truncation** | Adjusts all texts to a fixed length (`max_length=256`). | Ensures batches have a uniform size. |
+| **AutoModelForSequenceClassification** | Loads the pre-trained BERT model and adapts it for binary classification. | Core of the fine-tuned model. |
+| **Trainer and TrainingArguments** | Defines hyperparameters and executes training. | Controls the training and evaluation process. |
+| **compute_metrics** | Calculates metrics such as accuracy, precision, recall, and F1. | Allows evaluation of model performance. |
+| **trainer.train()** | Executes training for 2 epochs. | Adjusts the model weights to the problem data. |
+| **trainer.evaluate()** | Evaluates the model on the test set. | Generates final validation metrics. |
+| **trainer.save_model()** | Saves the trained model locally. | Allows reusing the model without retraining. |
+| **huggingface_hub (upload_folder)** | Publishes the model on Hugging Face for public inference. | Facilitates deployment and reuse by other users. |
 
 ---
 
-## Conclusiones
+### Why Was This Strategy Used?
 
-- Los modelos clásicos como Naive Bayes son útiles como linea base, pero tienen limitaciones semánticas
-- BERT ofrece una mejora significativa en precisión y velocidad cuando se entrena en GPU
-- La combinación de herramientas como KNIME, Python y LLM permite un flujo de trabajo robusto, automatizado y colaborativo
-- El modelo Naive Bayes con Bag of Words no es adecuado para la tarea de detección de noticias falsas en este dataset. Las métricas sugieren que no hay aprendizaje significativo. 
-- Se requiere un enfoque más robusto (como BERT o modelos contextuales) para obtener altos porcentajes de precision y baja tasa de error en los resultados de los entrenamientos.
-
+* **Multilingual BERT**: `bert-base-multilingual-cased` was chosen for its capacity to understand Spanish and other languages, ideal for news texts in Spanish.
+* **Contextual Tokenization**: BERT considers the full context of each word, which improves semantic understanding compared to methods like Bag of Words.
+* **Supervised Fine-tuning**: allows adapting a pre-trained model to a specific task (fake news classification) with high precision.
+* **Use of GPU**: significantly accelerates training, allowing thousands of examples to be processed in minutes.
+* **Hugging Face Trainer**: simplifies the training, evaluation, and publication flow of the model.
 
 ---
 
-## Repositorio del modelo
-A continuación se muestra una captura de los archivos generados y subidos al repositorio de Hugging Face:
+**BERT Model Results**
+This model was trained using `bert-base-multilingual-cased` on the Spanish fake news dataset. The training was performed for 2 epochs with a total of 5724 steps.
+
+**Training Details:**
+
+| Parameter | Value |
+| :--- | :--- |
+| Model | Multilingual BERT (`bert-base-multilingual-cased`) |
+| Epochs | 2 |
+| Total Steps (`global_step`) | 5724 |
+| Training Loss (`train_loss`) | 0.1381 |
+| Training Time | 1225.85 seconds |
+| Samples per Second | 74.7 |
+| Total FLOPs | 1.20e+16 |
+
+**Evaluation Metrics:**
+
+| Metric | Value |
+| :--- | :--- |
+| Loss (`eval_loss`) | 0.2088 |
+| Accuracy (`eval_accuracy`) | 95.47% |
+| Precision (`eval_precision`) | 95.60% |
+| Recall (`eval_recall`) | 95.47% |
+| F1 Score (`eval_f1`) | 95.44% |
+| Evaluation Time | 152.2 seconds |
+| Samples per Second | 78.5 |
+
+**Results Analysis**
+
+* Validation loss is **low** and close to training loss, which indicates good generalization.
+* Precision, recall, and F1 metrics are **aligned above 95%**, with no bias towards any class.
+* There are **no signs of *overfitting***: the model did not memorize the data but generalizes correctly on unseen examples.
+* This performance makes it suitable for deployment in production or public inference on platforms like Hugging Face.
+
+### 6. Automation with LLM
+
+* Generation of Python code
+* Flow documentation
+* Creation of visualization scripts
+* Drafting of LinkedIn posts
+
+---
+
+## Tools Used
+
+| Category | Tool |
+| :--- | :--- |
+| Project Management | Notion |
+| Data Analysis | KNIME, Python, pandas |
+| Language Models | Hugging Face Transformers, BERT |
+| Automation | LLM (Copilot, ChatGPT) |
+| Technical Repository | GitHub |
+
+---
+
+## Repository Content
+
+* [x] KNIME Flow
+* [x] Colab Training Script with BERT
+* [x] Metrics
+* [x] GitHub Repository with all resources
+
+---
+
+## Model Comparison
+
+## Metric-by-Metric Interpretation
+
+| Metric | Naive Bayes (KNIME) | BERT (`bert-base-multilingual-cased`) | Interpretation |
+| :--- | :--- | :--- | :--- |
+| **Accuracy** | 91.23% | 95.47% | BERT outperforms Naive Bayes in overall precision |
+| **Precision** | 91.80% | 95.60% | BERT has a better ability to avoid false positives |
+| **Recall** | 90.50% | 95.47% | BERT detects more true cases (fewer false negatives) |
+| **F1 Score** | 91.14% | 95.44% | BERT achieves a better balance between precision and recall |
+| **Eval Loss** | — | 0.2088 | BERT maintains a low loss in validation |
+| **Train Loss** | — | 0.1381 | BERT learned well without overfitting |
+| **Model** | Classic Statistical | Pre-trained Transformer | BERT has greater contextual representation capability |
+| **Platform** | KNIME | Hugging Face + PyTorch | BERT allows public deployment and advanced fine-tuning |
+
+---
+
+## Conclusions
+
+* Classic models like Naive Bayes are useful as a baseline but have semantic limitations.
+* BERT offers a **significant improvement** in precision and speed when trained on GPU.
+* The combination of tools like KNIME, Python, and LLM allows for a **robust, automated, and collaborative workflow**.
+* The model Naive Bayes with Bag of Words is **not suitable** for the fake news detection task on this dataset. The metrics suggest no significant learning.
+* A more robust approach (such as BERT or contextual models) is required to achieve **high accuracy percentages** and a **low error rate** in training results.
+
+---
+
+## Model Repository
+A screenshot of the files generated and uploaded to the Hugging Face repository is shown below:
 
 ![Archivos del modelo en Hugging Face](assets/2.png)
 
-Link de acceso al modelo:
+Model access link:
 [Hugging Face: jazska/fake-news-detector-es](https://huggingface.co/jazska/fake-news-detector-es)
 
 ---
 
 ---
 
-## Cómo probar el modelo
+## How to Test the Model
 
-Puedes probar el modelo directamente desde Hugging Face usando el pipeline de `transformers` en Python:
+You can test the model directly from Hugging Face using the `transformers` pipeline in Python:
 
-### 🔧 Requisitos
+### 🔧 Requirements
 
-Instala las librerías necesarias:
+Install the necessary libraries:
 
 ```bash
 pip install transformers torch
 
-## Código de ejemplo para pruebas desde Google Colab:
-
+## Example Code for Testing from Google Colab:
 import torch
 from transformers import pipeline
 from google.colab import userdata
 
-# Obtener el token de hugging face desde colab
+# Get the hugging face token from colab
 hf_token = userdata.get('HF_TOKEN')
 
 pipe = pipeline("text-classification", model="jazska/fake-news-detector-es", token=hf_token)
@@ -258,24 +289,21 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 tokenizer = AutoTokenizer.from_pretrained("jazska/fake-news-detector-es")
 model = AutoModelForSequenceClassification.from_pretrained("jazska/fake-news-detector-es")
 
-# Texto de prueba
-a = input("ingresa la noticia: ")
+# Test text
+a = input("Enter the news: ")
 texto = a
 
-# Tokenizar el texto
+# Tokenize the text
 inputs = tokenizer(texto, return_tensors="pt", truncation=True, padding=True)
 
-# Ejecutar inferencia
+# Run inference
 with torch.no_grad():
     outputs = model(**inputs)
     pred = torch.argmax(outputs.logits, dim=1).item()
 
-# Interpretar resultado
+# Interpret result
 etiquetas = ["Fake", "Real"] 
-print("Predicción:", etiquetas[pred])
+print("Prediction:", etiquetas[pred])
 
-```
-## Créditos
-
-Proyecto desarrollado como parte del curso de análisis de datos y automatización con LLM.  
-Incluye integración de herramientas de gestión, visualización, entrenamiento y publicación técnica.
+## Credits
+Project developed by Jonathan Zapata with the help of LLMs as part of the project for the Portfolio course at Polygon.US.
