@@ -1,4 +1,4 @@
-## 🌎 Class Project: Fake News Detection with BERT in Python and Naive Bayes in KNIME (English Translation)
+## Class Project: Fake News Detection with BERT in Python and Naive Bayes in KNIME (English Translation)
 
 ## Description
 
@@ -30,7 +30,7 @@ An exhaustive review was conducted on **Kaggle** to identify relevant datasets o
 * Unification of data into a single `.csv` file, eliminating unnecessary columns and normalizing fields like `titulo` (title), `texto` (text), and `clase` (class).
 * Additional transformations to ensure semantic coherence and correct binary classification (`Fake` / `Real`).
 
-#### 📦 Datasets Used:
+#### Datasets Used:
 
 * **Spanish Political Fake News**
     Real news obtained by web scraping from media outlets like *Público*, *La Marea*, and *El Común*. Includes manipulated and AI-generated fake news.
@@ -69,7 +69,7 @@ This flow includes dataset reading, text preprocessing, vectorization, and train
 
 ---
 
-## ⚙️ Explanation of KNIME Nodes Used
+## Explanation of KNIME Nodes Used
 
 The following describes the nodes that compose the KNIME processing flow for fake news classification:
 
@@ -104,7 +104,7 @@ The following describes the nodes that compose the KNIME processing flow for fak
 
 ---
 
-### 🔄 Change of Strategy and KNIME Testing
+### Change of Strategy and KNIME Testing
 
 During the initial phase of the project, tests were conducted in KNIME using classic classification models such as **Naive Bayes**, **Decision Trees**, and **Random Forest**. These models were trained on the same Spanish fake news dataset, applying vectorization techniques like Bag of Words.
 
@@ -134,7 +134,7 @@ The BERT model training was conducted in Google Colab using the Hugging Face `tr
 | Component / Step | What It Does | Role within the Flow |
 | :--- | :--- | :--- |
 | **Pandas (`pd.read_csv`)** | Loads the dataset from Google Drive and converts it into a DataFrame. | Starting point for data manipulation. |
-| **Preprocesamiento (`titulo + texto`)** | Combines the title and body of the news into a single `texto_completo` column. | Provides more semantic context to the model. |
+| **preprocessing (`title + text`)** | Combines the title and body of the news into a single `texto_completo` column. | Provides more semantic context to the model. |
 | **LabelEncoder** | Converts labels (`Fake` / `Real`) into numerical values (`0` / `1`). | Requirement for supervised training. |
 | **train_test_split** | Splits the dataset into training and test sets (80/20). | Allows evaluation of model generalization. |
 | **Hugging Face `Dataset.from_pandas`** | Converts DataFrames into `Dataset` objects compatible with `transformers`. | Standardizes the format for tokenization and training. |
@@ -267,7 +267,7 @@ Model access link:
 
 You can test the model directly from Hugging Face using the `transformers` pipeline in Python:
 
-### 🔧 Requirements
+###  Requirements
 
 Install the necessary libraries:
 
